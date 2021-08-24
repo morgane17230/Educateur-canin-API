@@ -6,6 +6,7 @@ const Dog = require("./dog");
 const Report = require("./report");
 const Message = require("./message");
 const Presta = require("./presta");
+const Content = require("./content");
 const messageHasUser = require("./message_has_user");
 
 
@@ -83,4 +84,4 @@ User.belongsToMany(Message, {
     otherKey: "message_id",
 });
 
-module.exports = { User, Animal, Cat, Dog, Message, Event, Report, Presta};
+module.exports = { User, Animal, Cat, Dog, Message, Event, Content, Report, Presta};

@@ -1,5 +1,4 @@
-const { response } = require("express");
-const { Dog, Cat } = require("../models");
+const { Animal, Dog, Cat } = require("../models");
 
 const animalController = {
   getAllDogs: async (_, res) => {
