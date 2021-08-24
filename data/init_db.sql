@@ -1,15 +1,15 @@
 BEGIN;
 
 DROP TABLE IF EXISTS
-"user"
-"dog"
-"cat"
-"content"
-"presta"
-"event"
-"report"
-"animal"
-"message"
+"user",
+"dog",
+"cat",
+"content",
+"presta",
+"event",
+"report",
+"animal",
+"message";
 
 CREATE TABLE "user" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -49,8 +49,8 @@ CREATE TABLE "cat" (
 CREATE TABLE "content" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "element" TEXT NOT NULL,
-    "text" TEXT NOT NULL,
-    "photo" BYTEA NOT NULL,
+    "text" TEXT NOT NULL DEFAULT '',
+    "photo" BYTEA,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
     );
@@ -67,7 +67,7 @@ CREATE TABLE "event" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "start_time" DATE NOT NULL,
     "end_time" DATE NOT NULL,
-    "paid" BOOLEAN NOT NULL DEFAULT FALSE
+    "paid" BOOLEAN NOT NULL DEFAULT FALSE,
     "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
     "presta_id" INTEGER NOT NULL REFERENCES "presta"("id") ON DELETE CASCADE,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -88,7 +88,7 @@ CREATE TABLE "animal" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" TEXT NOT NULL,
     "birth" DATE NOT NULL,
-    "photo" BYTEA NOT NULL,
+    "photo" BYTEA,
     "cat_id" INTEGER NOT NULL REFERENCES "cat"("id") ON DELETE CASCADE,
     "dog_id" INTEGER NOT NULL REFERENCES "dog"("id") ON DELETE CASCADE,
     "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
