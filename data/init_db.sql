@@ -26,6 +26,7 @@ CREATE TABLE "user" (
     "city" TEXT NOT NULL,
     "latitude" INT NOT NULL,
     "longitude" INT NOT NULL,
+    "password" TEXT NOT NULL,
     "active" BOOLEAN NOT NULL DEFAULT TRUE,
     "role" TEXT NOT NULL DEFAULT 'user',
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -90,8 +91,8 @@ CREATE TABLE "animal" (
     "name" TEXT NOT NULL,
     "birth" DATE NOT NULL,
     "photo" BYTEA,
-    "cat_id" INTEGER REFERENCES "cat"("id") ON DELETE CASCADE,
-    "dog_id" INTEGER REFERENCES "dog"("id") ON DELETE CASCADE,
+    "cat_id" INTEGER NOT NULL DEFAULT 0 REFERENCES "cat"("id") ON DELETE CASCADE,
+    "dog_id" INTEGER NOT NULL DEFAULT 0 REFERENCES "dog"("id") ON DELETE CASCADE,
     "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ

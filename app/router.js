@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const animalController = require("./controllers/animalController")
 
 
-router.get("/", (_, res) => {
-    res.send('serveur démarré')
-});
+router.get("/dogs", animalController.getAllDogs);
+router.get("/cats", animalController.getAllCats);
 
 module.exports = router;

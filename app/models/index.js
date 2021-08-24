@@ -6,6 +6,7 @@ const Dog = require("./dog");
 const Report = require("./report");
 const Message = require("./message");
 const Presta = require("./presta");
+const messageHasUser = require("./message_has_user");
 
 
 User.hasMany(Event, {
@@ -54,7 +55,7 @@ Cat.hasMany(Animal, {
 });
 
 Animal.belongsTo(Cat, {
-    as: "race",
+    as: "cat_race",
     foreignKey: "cat_id",
 });
 
@@ -64,20 +65,20 @@ Dog.hasMany(Animal, {
 });
 
 Animal.belongsTo(Dog, {
-    as: "race",
+    as: "dog_race",
     foreignKey: "dog_id",
 });
 
 Message.belongsToMany(User, {
     as: "users",
-    through: message_has_user,
+    through: messageHasUser,
     foreignKey: "message_id",
     otherKey: "user_id"
 });
 
 User.belongsToMany(Message, {
     as: "messages",
-    through: message_has_user,
+    through: messageHasUser,
     foreignKey: "user_id",
     otherKey: "message_id",
 });
