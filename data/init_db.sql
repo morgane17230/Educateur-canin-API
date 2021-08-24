@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS
 "event",
 "report",
 "animal",
+"message_has_user",
 "message";
 
 CREATE TABLE "user" (
@@ -89,8 +90,8 @@ CREATE TABLE "animal" (
     "name" TEXT NOT NULL,
     "birth" DATE NOT NULL,
     "photo" BYTEA,
-    "cat_id" INTEGER NOT NULL REFERENCES "cat"("id") ON DELETE CASCADE,
-    "dog_id" INTEGER NOT NULL REFERENCES "dog"("id") ON DELETE CASCADE,
+    "cat_id" INTEGER REFERENCES "cat"("id") ON DELETE CASCADE,
+    "dog_id" INTEGER REFERENCES "dog"("id") ON DELETE CASCADE,
     "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
@@ -99,9 +100,16 @@ CREATE TABLE "animal" (
 CREATE TABLE "message" ( 
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "text" TEXT NOT NULL,
-    "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
     );
 
-    COMMIT;
+CREATE TABLE "message_has_user" (
+    PRIMARY KEY ("message_id", "user_id"),
+    "message_id" INTEGER NOT NULL REFERENCES "message"("id") ON DELETE CASCADE,
+    "user_id" INTEGER NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "updated_at" TIMESTAMPTZ
+    );
+    
+COMMIT;
