@@ -17,8 +17,9 @@ User.init(
     city: DataTypes.TEXT,
     latitude: DataTypes.INTEGER,
     longitude: DataTypes.INTEGER,
+    password: DataTypes.TEXT,
     active: DataTypes.BOOLEAN,
-    role: DataTypes.TEXT,
+    role: DataTypes.TEXT,    
   },
   {
     sequelize,
