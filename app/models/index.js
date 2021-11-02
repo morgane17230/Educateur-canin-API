@@ -6,8 +6,8 @@ const Dog = require("./dog");
 const Report = require("./report");
 const Message = require("./message");
 const Presta = require("./presta");
-const Content = require("./content");
-const messageHasUser = require("./message_has_user");
+const Conversation = require("./conversation");
+const conversationHasUser = require("./conversation_has_user");
 
 
 User.hasMany(Event, {
@@ -20,24 +20,24 @@ Event.belongsTo(User, {
     foreignKey: "user_id",
 });
 
-Report.hasOne(Event, {
-    as: "event",
-    foreignKey: "event_id",
-});
-
-Event.belongsTo(Report, {
-    as: "report",
-    foreignKey: "event_id",
-});
-
 Presta.hasMany(Event, {
-    as: "events",
-    foreignKey: "presta_id",
+  as: "events",
+  foreignKey: "presta_id",
 });
 
 Event.belongsTo(Presta, {
-    as: "presta",
-    foreignKey: "presta_id",
+  as: "presta",
+  foreignKey: "presta_id",
+});
+
+Event.hasMany(Report, {
+    as: "reports",
+    foreignKey: "event_id",
+});
+
+Report.belongsTo(Event, {
+    as: "event",
+    foreignKey: "event_id",
 });
 
 User.hasMany(Animal, {
@@ -51,37 +51,57 @@ Animal.belongsTo(User, {
 });
 
 Cat.hasMany(Animal, {
-    as: "animal",
+    as: "cats",
     foreignKey: "cat_id",
 });
 
 Animal.belongsTo(Cat, {
-    as: "cat_race",
+    as: "cat",
     foreignKey: "cat_id",
 });
 
 Dog.hasMany(Animal, {
-    as: "animal",
-    foreignKey: "animal",
-});
-
-Animal.belongsTo(Dog, {
-    as: "dog_race",
+    as: "dogs",
     foreignKey: "dog_id",
 });
 
-Message.belongsToMany(User, {
+Animal.belongsTo(Dog, {
+    as: "dog",
+    foreignKey: "dog_id",
+});
+
+User.hasMany(Message, {
+    as: "messages",
+    foreignKey: "user_id"
+});
+
+Message.belongsTo(User, {
+    as: "user",
+    foreignKey: 'user_id'
+});
+
+Conversation.hasMany(Message, {
+    as: "messages",
+    foreignKey: "conversation_id"
+});
+
+Message.belongsTo(Conversation, {
+    as: "conversations",
+    foreignKey: "conversation_id"
+});
+
+Conversation.belongsToMany(User, {
     as: "users",
-    through: messageHasUser,
-    foreignKey: "message_id",
+    through: conversationHasUser,
+    foreignKey: "conversation_id",
     otherKey: "user_id"
 });
 
-User.belongsToMany(Message, {
-    as: "messages",
-    through: messageHasUser,
+User.belongsToMany(Conversation, {
+    as: "conversations",
+    through: conversationHasUser,
     foreignKey: "user_id",
-    otherKey: "message_id",
+    otherKey: "conversation_id",
 });
 
-module.exports = { User, Animal, Cat, Dog, Message, Event, Content, Report, Presta};
+module.exports = { User, Animal, Cat, Dog, Message, Event, Report, Presta, Conversation};

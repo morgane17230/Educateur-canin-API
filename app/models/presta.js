@@ -7,6 +7,7 @@ Presta.init(
   {
     name: DataTypes.TEXT,
     price: DataTypes.INTEGER,
+    color: DataTypes.TEXT,
   },
   {
     sequelize,

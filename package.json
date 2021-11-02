@@ -1,6 +1,7 @@
-{"scripts": {
-  "start": "node ./app/index.js"
-},
+{
+  "scripts": {
+    "start": "node ./app/index.js"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

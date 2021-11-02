@@ -8,6 +8,7 @@ Report.init(
     title: DataTypes.TEXT,
     content: DataTypes.TEXT,
     finished: DataTypes.BOOLEAN,
+    type: DataTypes.TEXT,
     event_id: DataTypes.INTEGER,
   },
   {
